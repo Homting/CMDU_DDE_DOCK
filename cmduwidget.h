@@ -26,7 +26,6 @@ private:
     QString m_cachedTime;
     QSettings m_settings;
     bool m_24HourFormat;
-
 };
 
 #endif // CMDUWIDGET_H

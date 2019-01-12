@@ -2,7 +2,7 @@ QT              += widgets
 TEMPLATE         = lib
 CONFIG          += plugin c++11
 
-TARGET           = HTYCMDU
+TARGET           = LIBCMDU
 DISTFILES       += cmdu.json
 
 HEADERS += \

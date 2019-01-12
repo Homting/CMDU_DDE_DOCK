@@ -49,10 +49,6 @@ private:
     QString startup;
     //QLabel *labelStartupDuration;
     void about();
-    void changelog();
-    void bootRecord();
-    void bootAnalyze();
-
 };
 
 #endif // CMDUPlugin_H
