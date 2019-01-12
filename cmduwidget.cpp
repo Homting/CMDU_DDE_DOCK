@@ -12,7 +12,6 @@ CMDUWidget::CMDUWidget(QWidget *parent)
     : QWidget(parent),
       m_settings("deepin", "dde-dock-cmdu")
 {
-    font.setFamily("Noto Mono");
     text = " ↑    0KB/s \n ↓    0KB/s ";
     mp = 0;
     cp = 0;
@@ -30,6 +29,8 @@ void CMDUWidget::setEnabled(const bool b)
 
 QSize CMDUWidget::sizeHint() const
 {
+    QFont font = qApp->font();
+    font.setFamily("Noto Mono");
     QFontMetrics FM(font);
     return FM.boundingRect(" ↑    0KB/s ").size() + QSize(0, FM.boundingRect(" ↓    0KB/s ").height());
 }
@@ -44,10 +45,9 @@ void CMDUWidget::paintEvent(QPaintEvent *e)
     Q_UNUSED(e);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    //if(mp >= 90){
-    //    painter.fillRect(rect(), QBrush(Qt::red));
-    //}
     painter.setPen(Qt::white);
+    QFont font = qApp->font();
+    font.setFamily("Noto Mono");
     painter.setFont(font);
     painter.drawText(rect().adjusted(2,0,0,0), Qt::AlignLeft | Qt::AlignVCenter, text);
     if(mp < 90){
@@ -56,19 +56,4 @@ void CMDUWidget::paintEvent(QPaintEvent *e)
         painter.fillRect(0, height()*(100-mp)/100, 2, height()*mp/100, Qt::red);
     }
     painter.fillRect(width()-2, height()*(100-cp)/100, 2, height()*cp/100, Qt::white);
-}
-
-void CMDUWidget::mousePressEvent(QMouseEvent *e)
-{
-    if (e->button() != Qt::RightButton)
-        return QWidget::mousePressEvent(e);
-
-    const QPoint p(e->pos() - rect().center());
-    if (p.manhattanLength() < std::min(width(), height()) * 0.8 * 0.5)
-    {
-        emit requestContextMenu();
-        return;
-    }
-
-    QWidget::mousePressEvent(e);
 }
